@@ -1,0 +1,10 @@
+import{i as l,S as u}from"./assets/vendor-8c59ed88.js";(function(){const o=document.createElement("link").relList;if(o&&o.supports&&o.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))s(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const i of t.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&s(i)}).observe(document,{childList:!0,subtree:!0});function r(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function s(e){if(e.ep)return;e.ep=!0;const t=r(e);fetch(e.href,t)}})();function d(n){const o="https://pixabay.com/api/",r=new URLSearchParams({key:"44189121-1bd84ab9c2376b17257837ab7",q:"query",image_type:"photo",orientation:"horizontal",safesearch:"true"}),s=`${o}?${r}`;if(!s.ok)throw new Error("Failed to fetch images");return fetch(s).then(e=>e.json())}function f(n){const o=document.querySelector(".img-container");o.innerHTML=n.map(r=>`<a href="${r.largeImageUrl}"  class="gallery-item" >
+<img src="${r.webformatUrl}" alt="${r.tags}" />
+<div class="info">¨
+  <p>Likes: ${r.likes}</p>
+  <p>Views: ${r.views}</p>
+  <p>Comments: ${r.comments}</p>
+  <p>Downloads: ${r.downloads}</p>
+</div>
+</a>`).join("")}function m(){document.querySelector(".loading").style.display="block"}function c(){document.querySelector(".loading").style.display="none"}function a(n){l.error({title:"Error",message:n})}const p=document.querySelector(".form"),y="44189121-1bd84ab9c2376b17257837ab7";p.addEventListener("submit",n=>{n.preventDefault();const o=n.target.elements.query.value.trim();if(!o){a("Please enter a search query!");return}m();try{const r=d(o,y);if(c(),r.hits.lenght===0){a("Sorry, there are no images matching your search query. Please try again!");return}f(r.hits),new u(".img-container a").refresh()}catch{c(),a("Failed to fetch images. Please try again later!")}});
+//# sourceMappingURL=commonHelpers.js.map
