@@ -4,8 +4,9 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 
+let lightbox;
 
-export function searchImages(images){
+export function renderImages(images){
   const gallery = document.querySelector(".img-container");
   gallery.innerHTML = images.map(image =>
 `<a href="${image.largeImageUrl}"  class="gallery-item" >
@@ -20,12 +21,19 @@ export function searchImages(images){
   ).join(``);
 }
 
+/* if (lightbox){
+  lightbox.refresh();
+
+}else{
+  lightbox= new SimpleLightbox(gallery)
+} */
+
 export function showLoading(){
-  document.querySelector(".loading").style.display = "block"
+  document.querySelector(".loader").style.display = "block"
 }
 
 export function hideLoading(){
-  document.querySelector(".loading").style.display = "none";
+  document.querySelector(".loader").style.display = "none";
 }
 
 export function showError(message){

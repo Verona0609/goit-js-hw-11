@@ -1,4 +1,4 @@
-export function searchImg(query){
+export function searchImages(query){
   const BASE_URL = `https://pixabay.com/api/`;
   const params = new URLSearchParams({
     key: `44189121-1bd84ab9c2376b17257837ab7`,
@@ -11,10 +11,17 @@ export function searchImg(query){
   })
 
 const url= `${BASE_URL}?${params}`;
-  if(!url.ok){
-    throw new Error(`Failed to fetch images`)
+
+
+
+  return fetch(url).then(res=>{
+    if(!res.ok){
+      throw new Error("Failed to fetch images");
+    }
+    return res.json();
   }
-  return fetch(url).then(res=> res.json());
+
+    );
 }
 
 

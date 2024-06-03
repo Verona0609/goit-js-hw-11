@@ -1,47 +1,44 @@
-import {searchImg} from "./js/pixabay-api.js";
-import {searchImages, showLoading, hideLoading, showError} from "./js/render-functions.js";
-
+import {searchImages} from "./js/pixabay-api.js";
+import {renderImages, showLoading, hideLoading, showError} from "./js/render-functions.js";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
+import iziToast from "izitoast";
+import 'izitoast/dist/css/iziToast.min.css';
 
 const formEl = document.querySelector(".form")
-const apiKey = `44189121-1bd84ab9c2376b17257837ab7`
 
-
-formEl.addEventListener(`submit`,  e =>{
+formEl.addEventListener("submit", e =>{
   e.preventDefault();
 
   const query = e.target.elements.query.value.trim();
 
-  if(!query){
-    showError("Please enter a search query!")
+  if (!query){
+    showError("Please enter a search query!");
     return;
   }
 
-  showLoading();
+ /*  showLoading(); */
 
-try{
-  const data = searchImg(query, apiKey)
-  hideLoading();
+  searchImages(query)
+  .then(data =>{
+    hideLoading();
 
-  if (data.hits.lenght===0){
-    showError(`Sorry, there are no images matching your search query. Please try again!`)
-    return;
-  }
-  searchImages(data.hits);
+    if(data.hits.lenght === 0){
+      showError ( " Sorry, there  are no images matching your search query. Please try again!");
+      return;
+    }
+    clearGallery();
 
-  const box= new SimpleLightbox(".img-container a")
-  box.refresh();
+    renderImages(data.hits);
 
-}catch(error){
-  hideLoading();
-  showError("Failed to fetch images. Please try again later!")
-}
+    const container = new SimpleLightbox(".img-container a");
+    container.refresh();
 
 
-
-
-
-
+  })
+  .catch(error =>{
+    hideLoading();
+    showError("Failed to fetch images. Please try again later!")
+  })
 })
 
