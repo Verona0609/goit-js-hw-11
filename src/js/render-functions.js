@@ -4,32 +4,31 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 
-let lightbox;
+
+
+
+
 
 export function renderImages(images){
   const gallery = document.querySelector(".img-container");
   gallery.innerHTML = images.map(image =>
-`<a href="${image.largeImageUrl}"  class="gallery-item" >
-<img src="${image.webformatUrl}" alt="${image.tags}" />
+
+`<a href="${image.largeImageURL}"  class="gallery-item" >
+<img src="${image.webformatURL}" alt="${image.tags}" />
 <div class="info">¨
-  <p>Likes: ${image.likes}</p>
-  <p>Views: ${image.views}</p>
-  <p>Comments: ${image.comments}</p>
-  <p>Downloads: ${image.downloads}</p>
+  <p class="info-title">Likes: <span class="info-value">${image.likes}</span> </p>
+  <p class="info-title">Views: <span class="info-value">${image.views}</span></p>
+  <p class="info-title">Comments: <span class="info-value">${image.comments}</span></p>
+  <p class="info-title">Downloads: <span class="info-value">${image.downloads}</span></p>
 </div>
 </a>`
   ).join(``);
 }
 
-/* if (lightbox){
-  lightbox.refresh();
 
-}else{
-  lightbox= new SimpleLightbox(gallery)
-} */
 
 export function showLoading(){
-  document.querySelector(".loader").style.display = "block"
+  document.querySelector(".loader").style.display = "block";
 }
 
 export function hideLoading(){
@@ -39,7 +38,7 @@ export function hideLoading(){
 export function showError(message){
   iziToast.error({
     title:"Error",
-    message,
+    message: "Sorry, there are no images matching your search query. Please try again!"
   })
 }
 

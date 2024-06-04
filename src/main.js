@@ -2,10 +2,10 @@ import {searchImages} from "./js/pixabay-api.js";
 import {renderImages, showLoading, hideLoading, showError} from "./js/render-functions.js";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
-import iziToast from "izitoast";
-import 'izitoast/dist/css/iziToast.min.css';
+
 
 const formEl = document.querySelector(".form")
+
 
 formEl.addEventListener("submit", e =>{
   e.preventDefault();
@@ -17,17 +17,19 @@ formEl.addEventListener("submit", e =>{
     return;
   }
 
- /*  showLoading(); */
+  showLoading();
 
   searchImages(query)
   .then(data =>{
     hideLoading();
 
+
+
     if(data.hits.lenght === 0){
       showError ( " Sorry, there  are no images matching your search query. Please try again!");
       return;
     }
-    clearGallery();
+
 
     renderImages(data.hits);
 
@@ -39,6 +41,7 @@ formEl.addEventListener("submit", e =>{
   .catch(error =>{
     hideLoading();
     showError("Failed to fetch images. Please try again later!")
-  })
+
+  });
 })
 
